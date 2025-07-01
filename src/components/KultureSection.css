@@ -1,0 +1,96 @@
+.card-stack-3d {
+  perspective: 1200px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card3d {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 0.75rem;
+  background-blend-mode: overlay;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  background-size: cover;
+  color: white;
+  font-weight: bold;
+  font-size: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease;
+}
+@media (max-width: 640px) {
+  
+
+  .card-stack-container {
+    height: 120px;
+  }
+}
+
+
+/* 🧲 Ultra-tight default stack with deeper rotation */
+.card3d.history {
+  transform: translateX(-60px) translateZ(-20px) rotateY(60deg);
+  z-index: 1;
+}
+.card3d.culture {
+  transform: translateX(0px) translateZ(-10px) rotateY(60deg);
+  z-index: 2;
+}
+.card3d.proverbs {
+  transform: translateX(60px) translateZ(-20px) rotateY(60deg);
+  z-index: 3;
+}
+
+/* 🌀 Hover to fan out with middle lift */
+.card-stack-3d:hover .history {
+  transform: translateX(-120px) rotateY(0deg);
+}
+.card-stack-3d:hover .culture {
+  transform: translateX(0px) rotateY(0deg) translateY(-12px) scale(1.05);
+  z-index: 3;
+}
+.card-stack-3d:hover .proverbs {
+  transform: translateX(120px) rotateY(0deg);
+}
+
+.card-stack-3d:hover .history {
+  transform: translateX(-120px) rotateY(0deg);
+  animation: historySecondStage 0.5s ease forwards;
+  animation-delay: 0.4s;
+}
+
+.card-stack-3d:hover .culture {
+  transform: translateX(0px) rotateY(0deg) translateY(-12px) scale(1.05);
+  z-index: 3;
+}
+
+.card-stack-3d:hover .proverbs {
+  transform: translateX(120px) rotateY(0deg);
+  animation: proverbsSecondStage 0.5s ease forwards;
+  animation-delay: 0.4s;
+}
+
+/* 🎯 Second-stage hover animation (further slide out while still touching) */
+@keyframes historySecondStage {
+  from {
+    transform: translateX(-120px) rotateY(0deg);
+  }
+  to {
+    transform: translateX(-170px) rotate(-45deg) translateY(20px);
+  }
+}
+
+@keyframes proverbsSecondStage {
+  from {
+    transform: translateX(120px) rotateY(0deg);
+  }
+  to {
+    transform: translateX(170px) rotate(45deg) translateY(20px);
+  }
+}

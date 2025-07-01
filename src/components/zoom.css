@@ -1,0 +1,21 @@
+/* Remove default spacing from body and html */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/* src/zoom.css */
+@keyframes zoomEffect {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.zoom-animation {
+  animation: zoomEffect 2s ease-in-out infinite;
+}
