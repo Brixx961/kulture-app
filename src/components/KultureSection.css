@@ -33,7 +33,7 @@
 }
 
 
-/* 🧲 Ultra-tight default stack with deeper rotation */
+/*  default stack with deeper rotation */
 .card3d.history {
   transform: translateX(-60px) translateZ(-20px) rotateY(60deg);
   z-index: 1;
@@ -47,7 +47,7 @@
   z-index: 3;
 }
 
-/* 🌀 Hover to fan out with middle lift */
+/* Hover to fan out with middle lift */
 .card-stack-3d:hover .history {
   transform: translateX(-120px) rotateY(0deg);
 }
@@ -76,7 +76,7 @@
   animation-delay: 0.4s;
 }
 
-/* 🎯 Second-stage hover animation (further slide out while still touching) */
+/*  Second-stage hover animation  */
 @keyframes historySecondStage {
   from {
     transform: translateX(-120px) rotateY(0deg);

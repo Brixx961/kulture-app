@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // API routes
-app.use('/api/subscribe', subscribeRoute);
+// app.use('/api/subscribe', subscribeRoute);
 app.use('/api/youtube', youtubeRoute);
 
 // Serve static frontend *only in production*

@@ -7,7 +7,7 @@ import {
   Copyright,
 } from 'lucide-react';
 import { SiTiktok } from 'react-icons/si';
-import logo from '../assets/logo.png'; // Adjust path if needed
+import logo from '../assets/logo.png'; 
 
 const Footer = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import client from "../lib/contentful/client";
-import RichText from "./RichText"; // Reuse your existing RichText component
+import RichText from "./RichText"; 
 
 const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(null);
