@@ -32,8 +32,8 @@ const FeatureSection = () => {
   }, []);
 
   return (
-    <section id="insights" className="relative px-4 sm:px-6 lg:px-10 mt-30 mx-auto">
-      <div className="max-w-7xl mx-auto">
+    <section id="insights" className="relative px-4 md:px-12 lg:px-20 mt-30 mx-auto">
+      <div className="max-w-9xl mx-auto">
         <div className="text-left">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-10 lg:mt-20 tracking-wide">
             Our Latest Insight

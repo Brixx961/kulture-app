@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './zoom.css';
 import logo from '../assets/logo.png';
-import img1 from '../assets/img2.png';
+import img1 from '../assets/img1.png';
 import img2 from '../assets/img2.png';
 import img3 from '../assets/img3.png';
 import img4 from '../assets/img4.png';
@@ -54,7 +54,11 @@ const HeroSection = () => {
 
         {/* Centered Logo */}
         <div className="absolute top-2 sm:top-4 md:top-3 left-1/2 transform -translate-x-1/2 z-20">
-          <img src={logo} alt="Logo" className="w-18 sm:w-30 md:w-42 lg:w-54" />
+          <img
+  src={logo}
+  alt="Logo"
+  className="w-24 sm:w-32 md:w-40 lg:w-56 xl:w-64"
+/>
         </div>
       </div>
 

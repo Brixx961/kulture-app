@@ -11,58 +11,46 @@ import logo from '../assets/logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-6 mt-20">
-      <div className="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-12 text-sm">
-        
-        {/* Logo */}
-        <div className="flex items-center">
-          <img src={logo} alt="Logo" className="w-18 sm:w-30 md:w-42 lg:w-54" />
-        </div>
+    <footer className="bg-black text-white py-6 mt-20 px-4 md:px-12 lg:px-20">
+  <div className="w-full flex flex-wrap justify-between items-center gap-y-6 text-sm">
+    {/* Logo */}
+    <div className="flex items-center">
+      <img src={logo} alt="Logo" className="w-18 sm:w-30 md:w-42 lg:w-54" />
+    </div>
 
-        {/* Divider */}
-        <div className="hidden md:block w-px h-6 bg-gray-600" />
+    {/* Social Icons */}
+    <div className="flex gap-4">
+      <a href="#" className="bg-[#222] p-2 rounded-full">
+        <Instagram size={18} />
+      </a>
+      <a href="#" className="bg-[#222] p-2 rounded-full">
+        <Youtube size={18} />
+      </a>
+      <a href="#" className="bg-[#222] p-2 rounded-full">
+        <SiTiktok size={18} className="text-white" />
+      </a>
+    </div>
 
-        {/* Social Icons */}
-        <div className="flex gap-4">
-          <a href="#" className="bg-[#222] p-2 rounded-full">
-            <Instagram size={18} />
-          </a>
-          <a href="#" className="bg-[#222] p-2 rounded-full">
-            <Youtube size={18} />
-          </a>
-          <a href="#" className="bg-[#222] p-2 rounded-full">
-            <SiTiktok size={18} className="text-white" />
-          </a>
-        </div>
+    {/* Phone */}
+    <div className="flex items-center gap-2">
+      <Phone size={16} />
+      <span>+234 - 000 - 000 - 0000</span>
+    </div>
 
-        {/* Divider */}
-        <div className="hidden md:block w-px h-6 bg-gray-600" />
+    {/* Email */}
+    <div className="flex items-center gap-2">
+      <Mail size={16} />
+      <span>kulturenation@gmail.com</span>
+    </div>
 
-        {/* Phone */}
-        <div className="flex items-center gap-2">
-          <Phone size={16} />
-          <span>+234 - 000 - 000 - 0000</span>
-        </div>
+    {/* Copyright */}
+    <div className="flex items-center gap-1">
+      <Copyright size={16} />
+      <span>2025 Kulture Nation</span>
+    </div>
+  </div>
+</footer>
 
-        {/* Divider */}
-        <div className="hidden md:block w-px h-6 bg-gray-600" />
-
-        {/* Email */}
-        <div className="flex items-center gap-2">
-          <Mail size={16} />
-          <span>kulturenation@gmail.com</span>
-        </div>
-
-        {/* Divider */}
-        <div className="hidden md:block w-px h-6 bg-gray-600" />
-
-        {/* Copyright */}
-        <div className="flex items-center gap-1">
-          <Copyright size={16} />
-          <span>2025 Kulture Nation</span>
-        </div>
-      </div>
-    </footer>
   );
 };
 

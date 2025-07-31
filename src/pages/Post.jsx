@@ -2,6 +2,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import client from '../lib/contentful/client';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 // import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -26,7 +27,7 @@ const Post = () => {
           return;
         }
 
-        setPost(response.items[0].fields);
+        setPost(response.items[0]); // Save the full item (fields + sys)
       } catch (error) {
         console.error('Error fetching full post:', error);
       } finally {
@@ -52,6 +53,39 @@ const Post = () => {
     fetchPost();
     fetchLatestPosts();
   }, [slug, navigate]);
+
+  // 🧠 Rich Text Render Options
+  const richTextOptions = {
+    renderMark: {
+      [MARKS.BOLD]: text => <strong className="font-bold">{text}</strong>,
+      [MARKS.ITALIC]: text => <em className="italic">{text}</em>,
+      [MARKS.UNDERLINE]: text => <span className="underline">{text}</span>,
+      [MARKS.CODE]: text => <code className="bg-gray-100 text-sm px-1 rounded">{text}</code>,
+    },
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node, children) => <p className="mb-4">{children}</p>,
+      [BLOCKS.HEADING_1]: (node, children) => <h1 className="text-3xl font-bold mt-8 mb-4">{children}</h1>,
+      [BLOCKS.HEADING_2]: (node, children) => <h2 className="text-2xl font-semibold mt-6 mb-3">{children}</h2>,
+      [BLOCKS.HEADING_3]: (node, children) => <h3 className="text-xl font-medium mt-5 mb-2">{children}</h3>,
+      [BLOCKS.UL_LIST]: (node, children) => <ul className="list-disc pl-6 mb-4">{children}</ul>,
+      [BLOCKS.OL_LIST]: (node, children) => <ol className="list-decimal pl-6 mb-4">{children}</ol>,
+      [BLOCKS.LIST_ITEM]: (node, children) => <li className="mb-1">{children}</li>,
+      [BLOCKS.QUOTE]: (node, children) => (
+        <blockquote className="border-l-4 border-yellow-500 pl-4 italic text-gray-600 my-4">{children}</blockquote>
+      ),
+      [BLOCKS.HR]: () => <hr className="my-8 border-t border-gray-300" />,
+      [INLINES.HYPERLINK]: (node, children) => (
+        <a
+          href={node.data.uri}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-yellow-600 underline hover:text-yellow-800"
+        >
+          {children}
+        </a>
+      ),
+    },
+  };
 
   if (loading) return <p className="text-center py-20">Loading...</p>;
   if (!post) return null;
@@ -88,18 +122,16 @@ const Post = () => {
           {/* Main Post Area */}
           <div className="w-full lg:w-2/3">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif mb-2">
-              <strong className="font-semibold">{post.title?.split(':')[0]}</strong>
-              {post.title?.includes(':') && (
-                <span>: {post.title.split(':').slice(1).join(':')}</span>
+              <strong className="font-semibold">{post.fields.title?.split(':')[0]}</strong>
+              {post.fields.title?.includes(':') && (
+                <span>: {post.fields.title.split(':').slice(1).join(':')}</span>
               )}
             </h1>
 
             <div className="text-sm text-gray-500 mb-6 flex flex-wrap justify-between items-center border-b pb-4">
+              <div></div>
               <div>
-                <span className="text-yellow-600">By Name here and Name Here</span>
-              </div>
-              <div>
-                {new Date(post?.date || post?.sys?.createdAt).toLocaleDateString('en-GB', {
+                {new Date(post.fields.date || post.sys.createdAt).toLocaleDateString('en-GB', {
                   day: 'numeric',
                   month: 'long',
                   year: 'numeric',
@@ -107,17 +139,31 @@ const Post = () => {
               </div>
             </div>
 
-            {post.image?.fields?.file?.url && (
+            {post.fields.image?.fields?.file?.url && (
               <img
-                src={post.image.fields.file.url}
-                alt={post.title}
+                src={post.fields.image.fields.file.url}
+                alt={post.fields.title}
                 className="w-full h-auto rounded-lg mb-10"
               />
             )}
 
-            <article className="prose max-w-none prose-lg">
-              {post.body && documentToReactComponents(post.body)}
+            <article className="prose max-w-none prose-lg mb-8">
+              {post.fields.body && documentToReactComponents(post.fields.body, richTextOptions)}
             </article>
+
+            {/* Call to Action */}
+            <div className="text-base mt-6 text-black bg-yellow-100 rounded-md  leading-relaxed">
+              If you love stories like this one, ask your parents to subscribe to{' '}
+              <a
+                href="https://www.youtube.com/@kulturenation"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-yellow-700 underline hover:text-yellow-900"
+              >
+                Kulture Nation on YouTube
+              </a>{' '}
+              for more exciting adventures about Africa’s amazing festivals and traditions!
+            </div>
           </div>
 
           {/* Sidebar Latest Posts */}

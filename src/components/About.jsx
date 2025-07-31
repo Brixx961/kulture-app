@@ -26,7 +26,8 @@ const VideoSection = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/youtube/videos');
+        const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${BACKEND_URL}/api/youtube/videos`);
         const data = await res.json();
 
         const { videos, details } = data;
@@ -120,7 +121,6 @@ const VideoSection = () => {
 </svg>
             </div>
           </div>
-          {/* <div className="w-6 h-6 sm:w-8 sm:h-8 bg-black rounded-full border border-gray-600" /> */}
         </div>
 
         {/* Main Video */}

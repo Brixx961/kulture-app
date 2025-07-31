@@ -13,12 +13,14 @@ const SignUpSection = () => {
     setLoading(true);
     setMessage('');
 
-    try {
-      const res = await fetch('http://localhost:5000/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
+      try {
+    const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const res = await fetch(`${BACKEND_URL}/api/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
 
       const data = await res.json();
 
@@ -57,13 +59,13 @@ const SignUpSection = () => {
     <section className="w-full bg-black text-white py-16 px-4 flex flex-col items-center text-center">
       {/* Social Icons */}
       <div className="flex space-x-6 mb-8">
-        <a href="https://www.instagram.com/theaibibleofficial/" target="_blank" rel="noopener noreferrer">
+        <a href="#" target="_blank" rel="noopener noreferrer">
           <img src={igIcon} alt="Instagram" className="w-8 h-8 sm:w-10 sm:h-10" />
         </a>
-        <a href="https://www.youtube.com/@TheAIBibleOfficial" target="_blank" rel="noopener noreferrer">
+        <a href="#" target="_blank" rel="noopener noreferrer">
           <img src={ytIcon} alt="YouTube" className="w-8 h-8 sm:w-10 sm:h-10" />
         </a>
-        <a href="https://www.tiktok.com/@theaibibleofficial" target="_blank" rel="noopener noreferrer">
+        <a href="#" target="_blank" rel="noopener noreferrer">
           <img src={tiktokIcon} alt="TikTok" className="w-8 h-8 sm:w-10 sm:h-10" />
         </a>
       </div>

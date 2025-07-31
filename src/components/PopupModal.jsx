@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import favicon from '../assets/favicon.png';
 
 const PopupModal = ({ show, onClose }) => {
   const modalRef = useRef();
@@ -34,12 +35,14 @@ const PopupModal = ({ show, onClose }) => {
     setLoading(true);
     setMessage('');
 
-    try {
-      const res = await fetch('http://localhost:5000/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
+   try {
+    const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const res = await fetch(`${BACKEND_URL}/api/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
 
       const data = await res.json();
 
@@ -74,64 +77,65 @@ const PopupModal = ({ show, onClose }) => {
 
   return (
     <div
-      onClick={handleBackdropClick}
-      className="fixed inset-0 bg-transparent flex items-center justify-center z-50"
+  onClick={handleBackdropClick}
+  className="fixed inset-0 bg-transparent flex items-center justify-center z-50 px-4 py-8 sm:px-6 sm:py-12"
+>
+  <div
+    ref={modalRef}
+    className="w-full max-w-md bg-white rounded-xl p-5 text-center shadow-xl text-black relative"
+  >
+    {/* Close button */}
+    <button
+      onClick={onClose}
+      className="absolute top-4 right-4 text-2xl font-bold text-gray-600 hover:text-black"
     >
-      <div
-        ref={modalRef}
-        className="w-[90%] max-w-[400px] h-auto bg-white rounded-xl p-5 text-center shadow-xl mx-20 my-20 text-black relative"
-      >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-2xl font-bold text-gray-600 hover:text-black"
-        >
-          &times;
-        </button>
+      &times;
+    </button>
 
-        {/* Logo */}
-        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2">
-          <div className="bg-black text-white rounded-full h-18 py-3 px-7 flex items-center justify-center text-xl font-bold border-1">
-            K
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="mt-10 space-y-4">
-          <p className="text-base sm:text-md leading-snug font-extralight">
-            Join the <span className="font-bold">KULTURE NATION</span> fam today and unlock <br />
-            <span className="font-bold">EXCLUSIVE CONTENT</span> on history, heritage, and more!
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black"
-              required
-            />
-            <button
-              type="submit"
-              className="w-full py-2.5 bg-black text-white text-sm font-semibold rounded-md hover:bg-gray-900 transition disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? 'Submitting...' : 'Subscribe'}
-            </button>
-            {message && (
-              <p className={`text-sm ${message.includes('success') ? 'text-green-600' : 'text-red-500'}`}>
-                {message}
-              </p>
-            )}
-          </form>
-
-          <p className="text-xs text-gray-500 leading-tight">
-            By providing my email I agree to allow Kulture Nation to use my email for marketing purposes, and I agree to the terms and conditions.
-          </p>
-        </div>
+    {/* Logo */}
+    <div className="absolute -top-10 left-1/2 transform -translate-x-1/2">
+      <div className="flex items-center justify-center">
+        <img src={favicon} alt="favicon" className="h-14 sm:h-18" />
       </div>
     </div>
+
+    {/* Content */}
+    <div className="mt-10 space-y-4">
+      <p className="text-sm sm:text-base leading-snug font-extralight">
+        Join the <span className="font-bold">KULTURE NATION</span> fam today and unlock <br />
+        <span className="font-bold">EXCLUSIVE CONTENT</span> on history, heritage, and more!
+      </p>
+
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full py-2 bg-black text-white text-sm font-semibold rounded-md hover:bg-yellow-500 hover:text-black transition disabled:opacity-50"
+          disabled={loading}
+        >
+          {loading ? 'Submitting...' : 'Subscribe'}
+        </button>
+        {message && (
+          <p className={`text-sm ${message.includes('success') ? 'text-yellow-400' : 'text-red-500'}`}>
+            {message}
+          </p>
+        )}
+      </form>
+
+      <p className="text-[11px] sm:text-xs text-gray-500 leading-tight">
+        By providing my email I agree to allow Kulture Nation to use my email for marketing purposes, and I agree to the terms and conditions.
+      </p>
+    </div>
+  </div>
+</div>
+
   );
 };
 
